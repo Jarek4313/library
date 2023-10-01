@@ -2,11 +2,13 @@ package com.jarek4313.auth.controller;
 
 
 import com.jarek4313.auth.entity.Code;
+import com.jarek4313.auth.entity.User;
 import com.jarek4313.auth.entity.dto.UserRegisterDto;
 import com.jarek4313.auth.entity.response.AuthResponse;
 import com.jarek4313.auth.exceptions.UserExistingWithMail;
 import com.jarek4313.auth.exceptions.UserExistingWithName;
 import com.jarek4313.auth.services.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,5 +40,11 @@ public class AuthController {
             log.info("User dont exist in database with this mail");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new AuthResponse(Code.USER_ALREADY_EXISTS_MAIL));
         }
+    }
+
+    @PostMapping(path = "/login")
+    public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response) {
+        log.info("--TRY LOGIN USER");
+        return userService.login(response, user);
     }
 }
