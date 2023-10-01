@@ -7,7 +7,8 @@ public enum Code {
     USER_INVALID_CREDENTIAL("Podane dane są nieprawidłowe"),
     INVALID_TOKEN("Wskazany tokane jest pusty lub nie ważny"),
     USER_ALREADY_EXISTS_LOGIN("Użytkownik o podanym loginie już istnieje"),
-    USER_ALREADY_EXISTS_MAIL("Użytkownik o podanym mailu już istnieje");
+    USER_ALREADY_EXISTS_MAIL("Użytkownik o podanym mailu już istnieje"),
+    USER_DONT_EXIST("Użytkownik nie istnieje");
 
     public final String label;
     private Code(String label) {

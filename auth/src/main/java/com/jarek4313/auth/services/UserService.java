@@ -6,6 +6,7 @@ import com.jarek4313.auth.entity.User;
 import com.jarek4313.auth.entity.dto.UserRegisterDto;
 import com.jarek4313.auth.entity.response.AuthResponse;
 import com.jarek4313.auth.entity.response.LoginResponse;
+import com.jarek4313.auth.exceptions.UserDontExistException;
 import com.jarek4313.auth.exceptions.UserExistingWithMail;
 import com.jarek4313.auth.exceptions.UserExistingWithName;
 import com.jarek4313.auth.repository.UserRepository;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -125,7 +127,7 @@ public class UserService {
         }
     }
 
-    private void validateToken(HttpServletRequest request, HttpServletResponse response) {
+    public void validateToken(HttpServletRequest request, HttpServletResponse response) {
         String token = null;
         String refresh = null;
         if (request.getCookies() != null) {
@@ -172,5 +174,41 @@ public class UserService {
             response.addCookie(cookie);
         }
         return ResponseEntity.ok(new AuthResponse(Code.SUCCESS));
+    }
+
+    public void authorize(HttpServletRequest request) {
+        String token = null;
+        String refresh = null;
+        if (request.getCookies() != null) {
+            for (Cookie value: Arrays.stream(request.getCookies()).toList()) {
+                if (value.getName().equals("Authorization")) {
+                    token = value.getValue();
+                } else if (value.getName().equals("refresh")) {
+                    refresh = value.getValue();
+                }
+            }
+        } else {
+            log.info("Can't login because in token is empty");
+            throw new IllegalArgumentException("Token can't be null");
+        }
+        if (StringUtils.isNoneEmpty(token)) {
+            String subject = jwtService.getSubject(token);
+            userRepository.findUserByLoginAndLockAndEnabledAndIsAdmin(subject).orElseThrow(() -> new UserDontExistException("User not found"));
+        } else if (refresh != null && !refresh.isEmpty()) {
+            String subject = jwtService.getSubject(refresh);
+            userRepository.findUserByLoginAndLockAndEnabledAndIsAdmin(subject).orElseThrow(() -> new UserDontExistException("User not found"));
+        }
+
+    }
+
+    public void activateUser(String uuid) {
+        User user = userRepository.findUserByUuid(uuid).orElse(null);
+        if (user != null) {
+            user.setLock(false);
+            user.setEnabled(true);
+            userRepository.save(user);
+            return;
+        }
+        throw new UserDontExistException("User dont exist");
     }
 }
