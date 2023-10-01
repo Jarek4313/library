@@ -8,16 +8,14 @@ import com.jarek4313.auth.entity.response.AuthResponse;
 import com.jarek4313.auth.exceptions.UserExistingWithMail;
 import com.jarek4313.auth.exceptions.UserExistingWithName;
 import com.jarek4313.auth.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -46,5 +44,23 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response) {
         log.info("--TRY LOGIN USER");
         return userService.login(response, user);
+    }
+
+    @GetMapping(path = "/auto-login")
+    public ResponseEntity<?> autoLogin(HttpServletResponse response, HttpServletRequest request) {
+        log.info("--TRY AUTO LOGIN USER");
+        return userService.loginByToken(request, response);
+    }
+
+    @GetMapping(path = "/logged-in")
+    public ResponseEntity<?> loggedIn(HttpServletResponse response, HttpServletRequest request) {
+        log.info("--CHECK USER LOGGED-IN");
+        return userService.loggedIn(request, response);
+    }
+
+    @GetMapping(path = "/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response, HttpServletRequest request) {
+        log.info("--TRY LOGOUT USER");
+        return userService.logout(request, response);
     }
 }
