@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './modules/core/core.module';
 import { registerLocaleData } from '@angular/common';
 import localePL from '@angular/common/locales/pl';
+import { AuthModule } from './modules/auth/auth.module';
 
 registerLocaleData(localePL);
 
@@ -16,6 +17,7 @@ registerLocaleData(localePL);
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
+    AuthModule,
     // AuthModule
     // StoreModule.forRoot({ auth: authReducer }),
     // EffectsModule.forRoot([AuthEffects]),
