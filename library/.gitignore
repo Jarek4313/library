@@ -73,3 +73,12 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/src/main/resources/application.properties
+/HELP.md
+/src/main/java/com/example/library/LibraryApplication.java
+/src/test/java/com/example/library/LibraryApplicationTests.java
+/.mvn/wrapper/maven-wrapper.jar
+/.mvn/wrapper/maven-wrapper.properties
+/mvnw
+/mvnw.cmd
+/pom.xml
