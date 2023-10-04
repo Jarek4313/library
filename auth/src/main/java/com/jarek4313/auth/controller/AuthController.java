@@ -29,7 +29,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping(path = "/register")
-    public ResponseEntity<AuthResponse> addNewUser(@Valid @RequestBody UserRegisterDto user) {
+    public ResponseEntity<AuthResponse> addNewUser( @RequestBody UserRegisterDto user) {
         try {
             log.info("--START REGISTER USER");
             userService.register(user);

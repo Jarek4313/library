@@ -1,6 +1,6 @@
 import { createReducer, Action, on } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
-import { IUser } from '../../core/models/auth.model';
+import { IUser, User } from '../../core/models/auth.model';
 
 export interface AuthState {
   user: IUser | null;
@@ -16,11 +16,26 @@ const initialState: AuthState = {
 
 const _authRecuder = createReducer(
   initialState,
-  //jeszcze register
-  on(AuthActions.login, (state, action) => ({
+  on(AuthActions.login, AuthActions.register, (state, action) => ({
     ...state,
     loading: true,
-  }))
+  })),
+  on(AuthActions.loginSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    user: new User(action.user.login, action.user.email, action.user.role),
+    error: null,
+  })),
+  on(AuthActions.registerSuccess, (state, action) => ({
+    ...state,
+    loading: false,
+    error: null,
+  })),
+  on(AuthActions.loginFailure, AuthActions.registerFailure, (state, action) => ({
+    ...state,
+    loading: false,
+    error: action.error,
+  })),
 )
 
 export function authRecuder(state: AuthState | undefined, action: Action) {

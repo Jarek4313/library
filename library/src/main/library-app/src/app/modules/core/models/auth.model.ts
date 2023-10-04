@@ -16,3 +16,15 @@ export interface LoginData {
   login: string;
   password: string;
 }
+
+export interface RegisterData {
+  email: string;
+  login: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  timestamp: string;
+  message: string;
+  code: string;
+}

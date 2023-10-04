@@ -20,6 +20,7 @@ public class RegistrationController {
 
     @PostMapping
     public ResponseEntity<Response> register(@RequestBody List<Endpoint> endpointList) {
+        routeValidator.addEndpoints(endpointList);
         return ResponseEntity.ok(new Response("Successfully register new endpoints"));
     }
 }
