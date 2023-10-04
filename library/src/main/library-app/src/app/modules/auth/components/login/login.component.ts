@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginForm } from '../../../core/models/forms.model';
+import { AppState } from 'src/app/store/app.reducer';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../store/auth.actions';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,16 +16,16 @@ export class LoginComponent {
     login: new FormControl('', {
       validators: [
         Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(50),
+        // Validators.minLength(8),
+        // Validators.maxLength(50),
       ],
       nonNullable: true,
     }),
     password: new FormControl('', {
       validators: [
         Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(75),
+        // Validators.minLength(8),
+        // Validators.maxLength(75),
       ],
       nonNullable: true,
     }),
@@ -31,9 +35,17 @@ export class LoginComponent {
     return this.loginForm.controls;
   }
 
-  // constructor() {}
+  constructor(
+    private store: Store<AppState>
+  ) {}
 
   onLogin() {
-    const a = 1;
+    this.store.dispatch(
+      AuthActions.login({ loginData: this.loginForm.getRawValue() })
+    )
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(AuthActions.clearError());
   }
 }

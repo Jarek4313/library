@@ -7,6 +7,10 @@ import { CoreModule } from './modules/core/core.module';
 import { registerLocaleData } from '@angular/common';
 import localePL from '@angular/common/locales/pl';
 import { AuthModule } from './modules/auth/auth.module';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './modules/auth/store/auth.effects';
+import { authRecuder } from './modules/auth/store/auth.reducer';
+import { StoreModule } from '@ngrx/store';
 
 registerLocaleData(localePL);
 
@@ -18,9 +22,8 @@ registerLocaleData(localePL);
     BrowserAnimationsModule,
     CoreModule,
     AuthModule,
-    // AuthModule
-    // StoreModule.forRoot({ auth: authReducer }),
-    // EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot({ auth: authRecuder }),
+    EffectsModule.forRoot([AuthEffects]),
     // NotifierModule.withConfig(customNotifier),
   ],
   providers: [
