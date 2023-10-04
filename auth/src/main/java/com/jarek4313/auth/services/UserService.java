@@ -55,14 +55,14 @@ public class UserService {
             throw new UserExistingWithMail("Users alredy exist with this mail");
         });
         User user = new User();
-        user.setLock(true);
-        user.setEnabled(false);
+        user.setLock(false);
+        user.setEnabled(true);
         user.setLogin(userRegisterDto.getLogin());
         user.setPassword(userRegisterDto.getPassword());
         user.setEmail(userRegisterDto.getEmail());
-        user.setRole(Role.USER);
+        user.setRole(Role.ADMIN);
         saveUser(user);
-        emailService.sendActivation(user);
+//        emailService.sendActivation(user);
     }
 
     private User saveUser(User user) {
