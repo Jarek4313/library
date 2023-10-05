@@ -9,6 +9,10 @@ const REGISTER = '[Auth] Register';
 const REGISTER_SUCCESS = '[Auth] Register Success';
 const REGISTER_FAILURE = '[Auth] Register Failure';
 
+const LOGOUT = '[Auth] Logout';
+const LOGOUT_SUCCESS = '[Auth] Logout Success';
+const LOGOUT_FAILURE = '[Auth] Logout Failure';
+
 const CLEAR_ERROR_TYPE = '[Auth] Clear Error';
 
 //LOGIN
@@ -39,6 +43,13 @@ export const registerFailure = createAction(
   REGISTER_FAILURE,
   props<{ error: string }>()
 );
+
+//LOGOUT
+export const logout = createAction(LOGOUT);
+
+export const logoutSuccess = createAction(LOGOUT_SUCCESS);
+
+export const logoutFailure = createAction(LOGOUT_FAILURE);
 
 //CLEAR ERROR
 export const clearError = createAction(CLEAR_ERROR_TYPE);
