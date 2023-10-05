@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid main-header">
-    <a class="navbar-brand" href="#">JDZ Library</a>
+    <a class="navbar-brand" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">JDZ Library</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,31 +9,30 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item ps-3">
-          <a class="nav-link" aria-current="page" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+          <a class="nav-link" aria-current="page" routerLink="/tmp1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Książki</a>
         </li>
-
-
-      </ul>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link btn btn-danger text-white px-3 ms-lg-3 py-1"
-            routerLink="register" routerLinkActive="active">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclude me-2" viewBox="0 0 16 16">
-              <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm12 2H5a1 1 0 0 0-1 1v7h7a1 1 0 0 0 1-1V4z"/>
-            </svg> -->
-            Sign in
-          </a>
+        <li class="nav-item ps-3">
+          <a class="nav-link" aria-current="page" routerLink="/tmp2" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Autorzy</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-primary text-white px-3 ms-lg-3 py-1"
-            routerLink="login" routerLinkActive="active">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclude me-2" viewBox="0 0 16 16">
-              <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm12 2H5a1 1 0 0 0-1 1v7h7a1 1 0 0 0 1-1V4z"/>
-            </svg>  -->
-            Login
-          </a>
+        <li class="nav-item ps-3">
+          <a class="nav-link" aria-current="page" routerLink="/tmp3" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Kategorie</a>
         </li>
       </ul>
+
+      <ul class="navbar-nav mb-auto mb-2 mb-lg-0">
+        <ng-container *ngIf='user$ | async as user; else notUser'>
+          <li class="nav-item ps-3">
+            <a class="nav-link" aria-current="page" routerLink="/administration" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Administracja</a>
+          </li>
+          <app-header-nav-item [route]="'/login'" [text]="'Logout'" (click)="logout()" [color]="'btn-secondary'"></app-header-nav-item>
+        </ng-container>
+        <ng-template #notUser>
+            <app-header-nav-item [route]="'/register'" [text]="'Register'" [color]="'btn-danger'"></app-header-nav-item>
+            <app-header-nav-item [route]="'/login'" [text]="'Login'"></app-header-nav-item>
+        </ng-template>
+      </ul>
+
+
     </div>
   </div>
 </nav>

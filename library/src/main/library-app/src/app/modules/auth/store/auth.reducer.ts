@@ -31,6 +31,14 @@ const _authRecuder = createReducer(
     loading: false,
     error: null,
   })),
+  on(AuthActions.logout, AuthActions.logoutFailure, (state, action) => ({
+    ...state,
+  })),
+  on(AuthActions.logoutSuccess, (state, action) => ({
+    ...state,
+    user: null,
+    error: null,
+  })),
   on(AuthActions.loginFailure, AuthActions.registerFailure, (state, action) => ({
     ...state,
     loading: false,

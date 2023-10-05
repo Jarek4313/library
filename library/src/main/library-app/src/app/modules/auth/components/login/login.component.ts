@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginForm } from '../../../core/models/forms.model';
 import { AppState } from 'src/app/store/app.reducer';
@@ -10,7 +10,7 @@ import * as AuthActions from '../../store/auth.actions';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   //może do ngOnInit??
   loginForm: FormGroup<LoginForm> = new FormGroup({
     login: new FormControl('', {
@@ -38,6 +38,13 @@ export class LoginComponent {
   constructor(
     private store: Store<AppState>
   ) {}
+
+  ngOnInit(): void {
+    this.loginForm.setValue({
+      login: 'jarek',
+      password: 'jarek',
+    })
+  }
 
   onLogin() {
     this.store.dispatch(

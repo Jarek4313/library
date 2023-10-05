@@ -1,0 +1,25 @@
+@import "vars.scss";
+
+.book-managment {
+  background-image: linear-gradient(to right, rgba(0,0,0,0.288), rgba(0,0,0,0.288));
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+.nav {
+  background-color: $jc-gray-600;
+  font-size: $jc-large-body-font-size;
+  width: 200px;
+  height: auto;
+  padding: 10px;
+
+  & .nav-link {
+    color: $jc-gray-900;
+  }
+
+  & .active {
+    background-color: $jc-gray-900;
+    color: $jc-gray-400;
+  }
+}

@@ -3,6 +3,7 @@ import { createSelector } from '@ngrx/store';
 import { AuthState } from './auth.reducer'
 export const selectAuth = (state: AppState) => state.auth;
 
+//coś jak globalna zmienna, która jest dostępna poprzez this.store.select np w header.component
 export const selectAuthUser = createSelector(
   selectAuth,
   (state: AuthState) => state.user

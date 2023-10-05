@@ -28,3 +28,9 @@ export interface RegisterResponse {
   message: string;
   code: string;
 }
+
+export interface LogoutResponse extends RegisterResponse {};
+
+export interface LoggedInResponse extends Omit<RegisterResponse, 'message'> {
+  message: boolean;
+}

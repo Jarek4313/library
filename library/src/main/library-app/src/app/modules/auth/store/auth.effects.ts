@@ -41,6 +41,23 @@ export class AuthEffects {
       )
   )
 
+  logout$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(AuthActions.logout),
+      switchMap(() => {
+        return this.authService.logout().pipe(
+          map(() => {
+            this.router.navigate(['/login']);
+            return AuthActions.logoutSuccess();
+          }),
+          catchError((err) => {
+            return of(AuthActions.logoutFailure());
+          })
+        )
+      })
+    )
+  )
+
   constructor(
     private actions$: Actions,
     private authService: AuthService,
