@@ -9,3 +9,8 @@ export interface RegisterForm extends LoginForm {
   email: FormControl<string>;
   repeatedPassword: FormControl<string>;
 }
+
+export interface AddBookForm {
+  title: FormControl<string>;
+  numberOfPage: FormControl<string>;
+}

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid main-header">
-    <a class="navbar-brand" href="#">JDZ Library</a>
+    <a class="navbar-brand" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">JDZ Library</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,22 +9,29 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item ps-3">
-          <a class="nav-link" aria-current="page" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+          <a class="nav-link" aria-current="page" routerLink="/tmp1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Książki</a>
+        </li>
+        <li class="nav-item ps-3">
+          <a class="nav-link" aria-current="page" routerLink="/tmp2" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Autorzy</a>
+        </li>
+        <li class="nav-item ps-3">
+          <a class="nav-link" aria-current="page" routerLink="/tmp3" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Kategorie</a>
         </li>
       </ul>
 
-      <ng-container *ngIf='user$ | async as user; else notUser'>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <app-header-nav-item [route]="'/login'" [text]="'Logout'" (click)="logout()" [color]="'f'"></app-header-nav-item>
-        </ul>
-      </ng-container>
+      <ul class="navbar-nav mb-auto mb-2 mb-lg-0">
+        <ng-container *ngIf='user$ | async as user; else notUser'>
+          <li class="nav-item ps-3">
+            <a class="nav-link" aria-current="page" routerLink="/administration" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Administracja</a>
+          </li>
+          <app-header-nav-item [route]="'/login'" [text]="'Logout'" (click)="logout()" [color]="'btn-secondary'"></app-header-nav-item>
+        </ng-container>
+        <ng-template #notUser>
+            <app-header-nav-item [route]="'/register'" [text]="'Register'" [color]="'btn-danger'"></app-header-nav-item>
+            <app-header-nav-item [route]="'/login'" [text]="'Login'"></app-header-nav-item>
+        </ng-template>
+      </ul>
 
-      <ng-template #notUser>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <app-header-nav-item [route]="'/register'" [text]="'Register'" [color]="'btn-danger'"></app-header-nav-item>
-          <app-header-nav-item [route]="'/login'" [text]="'Logout'"></app-header-nav-item>
-        </ul>
-      </ng-template>
 
     </div>
   </div>

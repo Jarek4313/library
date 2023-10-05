@@ -1,0 +1,27 @@
+@import "vars.scss";
+
+.nav-tabs {
+  &.nav-item {
+    border: none;
+  }
+}
+.dashboard-section {
+  font-size: $jc-large-body-font-size;
+  background-color: $jc-gray-600;
+  border-radius: 2px;
+  
+  
+  & a {
+    color: $jc-gray-900;
+    border: none;
+  }
+
+  & a.active {
+    background-color: $jc-gray-900;
+    color: $jc-gray-400;
+  }
+
+  & a:hover {
+    color: $jc-gray-400;
+  }
+}
